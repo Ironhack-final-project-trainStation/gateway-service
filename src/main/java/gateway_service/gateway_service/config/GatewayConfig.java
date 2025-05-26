@@ -12,7 +12,14 @@ public class GatewayConfig {
     public RouteLocator customRouteLocator (RouteLocatorBuilder builder) {
         return builder
                 .routes()
-                //.route() poner luego aqui las rutas
+                .route(p -> p.path("/api/driver/**")
+                        .uri("lb://driver-service"))
+                .route(p -> p.path("/api/traveler/**")
+                        .uri("lb://traveler-service"))
+                .route(p -> p.path("/api/train/**")
+                        .uri("lb://train-service"))
+
+
                 .build();
     }
 }
